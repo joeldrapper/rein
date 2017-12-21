@@ -37,3 +37,6 @@ request = Net::HTTP::Post.new("/keys")
 request.add_field('Content-Type', 'application/json')
 request.body = key
 response = http.request(request)
+
+puts key
+puts "Your SSH private key has just been posted to the web."
